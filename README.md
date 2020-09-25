@@ -5,6 +5,6 @@
 ```
 git clone https://github.com/hxzqwe/AdhocServerInDocker.git
 cd AdhocServerInDocker
-docker build -t AdhocServer:latest .
-docker run -it -d --name AdhocServer -p 27312:27312 AdhocServer:latest
+docker build -t adhocserver .
+docker run -it -d --name adhocserver -p 27312:27312 adhocserver
 ```
