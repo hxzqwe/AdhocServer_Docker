@@ -3,8 +3,8 @@
 
 # 项目使用方法
 ```
-git clone https://github.com/hxzqwe/AdhocServerInDocker.git
-cd AdhocServerInDocker
+git clone https://github.com/hxzqwe/AdhocServer_Docker.git
+cd AdhocServer_Docker
 docker build -t adhocserver .
 docker run -it -d --name adhocserver -p 27312:27312 -v /etc/localtime:/etc/localtime:ro adhocserver
 ```
