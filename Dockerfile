@@ -1,10 +1,23 @@
-FROM ubuntu:16.04
+FROM alpine:3.12 as build
 
-RUN sed -i 's+http://archive.ubuntu.com/ubuntu/+http://mirrors.aliyun.com/ubuntu/+g' /etc/apt/sources.list
-RUN sed -i 's+deb http://security.ubuntu.com/ubuntu/+#deb http://security.ubuntu.com/ubuntu/+g' /etc/apt/sources.list
-COPY ./src /usr/local/adhocserver
 WORKDIR /usr/local/adhocserver
-RUN apt-get update && apt-get install -y make libsqlite3-dev gcc
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+RUN apk add --no-cache \
+  g++ \
+  make \
+  sqlite-dev
+
+COPY ./src /usr/local/adhocserver
 RUN make
-	
+
+FROM alpine:3.12
+
+WORKDIR /usr/local/adhocserver
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+RUN apk add --no-cache \
+  sqlite-dev
+
+COPY --from=build /usr/local/adhocserver /usr/local/adhocserver
+
+EXPOSE 27312/tcp
 ENTRYPOINT ["/usr/local/adhocserver/AdhocServer"]
