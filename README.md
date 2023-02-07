@@ -6,5 +6,5 @@
 git clone https://github.com/hxzqwe/AdhocServer_Docker.git
 cd AdhocServer_Docker
 docker build -t adhocserver .
-docker run -d --name adhocserver -p 27312:27312 -v /etc/localtime:/etc/localtime:ro adhocserver
+docker run -td --name adhocserver -p 27312:27312 -v /etc/localtime:/etc/localtime:ro adhocserver
 ```
